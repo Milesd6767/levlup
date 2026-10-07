@@ -4,331 +4,1476 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>LevelUp</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#edf3ff;color:#17223b}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#edf3ff;
+  color:#17223b;
+}
+
 button,input{font:inherit}
 button{cursor:pointer}
-.app{max-width:420px;min-height:100vh;margin:auto;background:#f7faff;padding:20px 16px 90px}
-.logo{text-align:center;font-size:22px;font-weight:800;margin:10px 0 25px}
-.logo span{display:inline-grid;place-items:center;background:#3978f6;color:white;width:40px;height:40px;border-radius:13px;margin-right:8px}
-h1{font-size:29px;text-align:center;margin:10px 0}
+
+.app{
+  max-width:420px;
+  min-height:100vh;
+  margin:auto;
+  background:#f7faff;
+  padding:20px 16px 90px;
+}
+
+.logo{
+  text-align:center;
+  font-size:22px;
+  font-weight:800;
+  margin:10px 0 25px;
+}
+
+.logo span{
+  display:inline-grid;
+  place-items:center;
+  background:#3978f6;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  margin-right:8px;
+}
+
+h1{
+  font-size:29px;
+  text-align:center;
+  margin:10px 0;
+}
+
 h2{font-size:20px}
+
 p{color:#71809b}
-.card{background:white;border:1px solid #dce6f5;border-radius:18px;padding:15px;margin:10px 0;box-shadow:0 8px 22px #1a346312}
-input{width:100%;padding:12px;border:1px solid #dce6f5;border-radius:12px;background:#f1f5fb;margin:6px 0 12px}
-.primary{width:100%;border:0;border-radius:13px;padding:13px;background:linear-gradient(135deg,#2dbf79,#18a769);color:white;font-weight:800}
-.secondary{width:100%;border:1px solid #dce6f5;border-radius:13px;padding:12px;background:white;font-weight:700}
+
+.card{
+  background:white;
+  border:1px solid #dce6f5;
+  border-radius:18px;
+  padding:15px;
+  margin:10px 0;
+  box-shadow:0 8px 22px #1a346312;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border:1px solid #dce6f5;
+  border-radius:12px;
+  background:#f1f5fb;
+  margin:6px 0 12px;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:13px;
+  background:linear-gradient(135deg,#2dbf79,#18a769);
+  color:white;
+  font-weight:800;
+}
+
+.secondary{
+  width:100%;
+  border:1px solid #dce6f5;
+  border-radius:13px;
+  padding:12px;
+  background:white;
+  font-weight:700;
+}
+
 .screen{display:none}
 .screen.active{display:block}
-.goal{display:flex;align-items:center;gap:10px}
-.icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#e7f0ff}
+
+.goal{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:#e7f0ff;
+}
+
 .goalmain{flex:1}
+
 .goalname{font-weight:800}
-.meta{font-size:12px;color:#71809b;margin-top:4px}
-.log{background:#3978f6;color:white;border:0;border-radius:10px;padding:9px 12px;font-weight:700}
-.level{background:linear-gradient(135deg,#2674f8,#7651e9);color:white;border-radius:20px;padding:18px}
-.bar{height:8px;background:#e5edf7;border-radius:20px;overflow:hidden;margin-top:10px}
-.bar i{display:block;height:100%;background:#18a96b}
+
+.meta{
+  font-size:12px;
+  color:#71809b;
+  margin-top:4px;
+}
+
+.log{
+  background:#3978f6;
+  color:white;
+  border:0;
+  border-radius:10px;
+  padding:9px 12px;
+  font-weight:700;
+}
+
+.level{
+  background:linear-gradient(135deg,#2674f8,#7651e9);
+  color:white;
+  border-radius:20px;
+  padding:18px;
+}
+
+.bar{
+  height:8px;
+  background:#e5edf7;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  background:#18a96b;
+}
+
 .level .bar{background:#ffffff40}
 .level .bar i{background:white}
-.summary{display:flex;align-items:center;gap:15px}
-.ring{width:55px;height:55px;border-radius:50%;background:#18a96b;color:white;display:grid;place-items:center;font-weight:800}
-.xp{font-weight:800;color:#18a96b}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(420px,100%);height:70px;background:white;border-top:1px solid #dce6f5;display:flex;justify-content:space-around;padding:10px}
-.nav button{border:0;background:none;color:#71809b;font-weight:700}
+
+.summary{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.ring{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#18a96b;
+  color:white;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.xp{
+  font-weight:800;
+  color:#18a96b;
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(420px,100%);
+  height:70px;
+  background:white;
+  border-top:1px solid #dce6f5;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+}
+
+.nav button{
+  border:0;
+  background:none;
+  color:#71809b;
+  font-weight:700;
+}
+
 .nav button.active{color:#3978f6}
-.row{display:flex;justify-content:space-between;align-items:center}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
 .hidden{display:none!important}
-.check{color:#18a96b;font-weight:800}
+
+.switch{
+  text-align:center;
+  margin-top:15px;
+  color:#3978f6;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.logout{
+  color:#e05252;
+  margin-top:15px;
+}
+
+.error{
+  color:#e05252;
+  font-size:14px;
+  text-align:center;
+  margin-bottom:10px;
+}
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
-<!-- NAME -->
-<section id="nameScreen" class="screen active">
-  <div class="logo"><span>★</span>LevelUp</div>
-  <div class="card">
-    <h1>What should we call you?</h1>
-    <p style="text-align:center">Your name personalizes your LevelUp experience.</p>
-    <input id="nameInput" placeholder="Enter your name" maxlength="24">
-    <button class="primary" onclick="saveName()">Continue</button>
+<!-- LOGIN -->
+<section id="loginScreen" class="screen active">
+
+  <div class="logo">
+    <span>★</span>LevelUp
   </div>
+
+  <div class="card">
+
+    <h1>Welcome back!</h1>
+
+    <p style="text-align:center">
+      Log in to continue your LevelUp journey.
+    </p>
+
+    <div id="loginError" class="error"></div>
+
+    <input
+      id="loginUsername"
+      placeholder="Username"
+      maxlength="24"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+      maxlength="40"
+    >
+
+    <button class="primary" onclick="login()">
+      Log In
+    </button>
+
+    <div class="switch" onclick="show('signup')">
+      Don't have an account? Sign Up
+    </div>
+
+  </div>
+
 </section>
+
+
+<!-- SIGN UP -->
+<section id="signupScreen" class="screen">
+
+  <div class="logo">
+    <span>★</span>LevelUp
+  </div>
+
+  <div class="card">
+
+    <h1>Create Account</h1>
+
+    <p style="text-align:center">
+      Start your LevelUp journey.
+    </p>
+
+    <div id="signupError" class="error"></div>
+
+    <input
+      id="signupUsername"
+      placeholder="Choose a username"
+      maxlength="24"
+    >
+
+    <input
+      id="signupPassword"
+      type="password"
+      placeholder="Choose a password"
+      maxlength="40"
+    >
+
+    <input
+      id="signupPassword2"
+      type="password"
+      placeholder="Confirm password"
+      maxlength="40"
+    >
+
+    <button class="primary" onclick="signup()">
+      Create Account
+    </button>
+
+    <div class="switch" onclick="show('login')">
+      Already have an account? Log In
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NAME -->
+<section id="nameScreen" class="screen">
+
+  <div class="logo">
+    <span>★</span>LevelUp
+  </div>
+
+  <div class="card">
+
+    <h1>What should we call you?</h1>
+
+    <p style="text-align:center">
+      Your name personalizes your LevelUp experience.
+    </p>
+
+    <input
+      id="nameInput"
+      placeholder="Enter your name"
+      maxlength="24"
+    >
+
+    <button class="primary" onclick="saveName()">
+      Continue
+    </button>
+
+  </div>
+
+</section>
+
 
 <!-- GOALS -->
 <section id="goalsScreen" class="screen">
-  <div class="logo"><span>★</span>LevelUp</div>
+
+  <div class="logo">
+    <span>★</span>LevelUp
+  </div>
+
   <h1>Set your daily goals</h1>
-  <p style="text-align:center">Choose the habits you want to level up.</p>
+
+  <p style="text-align:center">
+    Choose the habits you want to level up.
+  </p>
 
   <div id="goalSetup"></div>
 
-  <button class="primary" onclick="saveGoals()">Save My Goals</button>
+  <button class="primary" onclick="saveGoals()">
+    Save My Goals
+  </button>
+
 </section>
+
 
 <!-- DASHBOARD -->
 <section id="dashboardScreen" class="screen">
+
   <div class="row">
+
     <div>
-      <small style="color:#71809b">TODAY'S MOMENTUM</small>
-      <h2>Good job, <span id="greeting"></span>!</h2>
+      <small style="color:#71809b">
+        TODAY'S MOMENTUM
+      </small>
+
+      <h2>
+        Good job, <span id="greeting"></span>!
+      </h2>
     </div>
+
     <b id="avatar"></b>
+
   </div>
 
+
   <div class="level">
+
     <small>CURRENT LEVEL</small>
+
     <div class="row">
-      <h2 id="level">Level 1</h2>
-      <b id="xp">0 XP</b>
+
+      <h2 id="level">
+        Level 1
+      </h2>
+
+      <b id="xp">
+        0 XP
+      </b>
+
     </div>
-    <div class="bar"><i id="xpBar"></i></div>
+
+    <div class="bar">
+      <i id="xpBar"></i>
+    </div>
+
     <small id="nextXP"></small>
+
   </div>
+
 
   <h2>My daily goals</h2>
 
+
   <div class="card summary">
-    <div class="ring" id="ring">0/0</div>
-    <div>
-      <b id="summary">0 goals complete</b>
-      <p style="margin:4px 0">Keep building momentum.</p>
+
+    <div class="ring" id="ring">
+      0/0
     </div>
+
+    <div>
+
+      <b id="summary">
+        0 goals complete
+      </b>
+
+      <p style="margin:4px 0">
+        Keep building momentum.
+      </p>
+
+    </div>
+
   </div>
+
 
   <div id="dashboardGoals"></div>
 
+
   <h2>Your streaks</h2>
+
   <div id="streaks"></div>
+
 </section>
+
 
 <!-- PROGRESS -->
 <section id="progressScreen" class="screen">
-  <div class="logo"><span>★</span>LevelUp</div>
+
+  <div class="logo">
+    <span>★</span>LevelUp
+  </div>
+
   <h1>Progress</h1>
+
   <div class="card">
+
     <h2>Total XP</h2>
-    <h1 id="totalXP">0 XP</h1>
+
+    <h1 id="totalXP">
+      0 XP
+    </h1>
+
   </div>
+
+
   <div class="card">
+
     <h2>Current Level</h2>
-    <h1 id="progressLevel">Level 1</h1>
+
+    <h1 id="progressLevel">
+      Level 1
+    </h1>
+
   </div>
+
+
   <div class="card">
+
     <h2>Best Streak</h2>
-    <h1 id="bestStreak">0 days 🔥</h1>
+
+    <h1 id="bestStreak">
+      0 days 🔥
+    </h1>
+
   </div>
+
 </section>
+
 
 <!-- PROFILE -->
 <section id="profileScreen" class="screen">
-  <div class="logo"><span>★</span>LevelUp</div>
+
+  <div class="logo">
+    <span>★</span>LevelUp
+  </div>
+
   <h1>Profile</h1>
+
   <div class="card">
+
+    <h2>Account</h2>
+
+    <p>
+      Username:
+      <b id="profileUsername"></b>
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
     <h2>Your name</h2>
+
     <input id="profileName">
-    <button class="primary" onclick="changeName()">Save Name</button>
+
+    <button
+      class="primary"
+      onclick="changeName()"
+    >
+      Save Name
+    </button>
+
   </div>
+
+
   <div class="card">
-    <button class="secondary" onclick="resetProgress()">Reset progress</button>
+
+    <button
+      class="secondary"
+      onclick="resetProgress()"
+    >
+      Reset Progress
+    </button>
+
+    <button
+      class="secondary logout"
+      onclick="logout()"
+    >
+      Log Out
+    </button>
+
   </div>
+
 </section>
 
 </div>
 
-<!-- NAV -->
+
+<!-- NAVIGATION -->
 <nav class="nav hidden" id="nav">
-  <button onclick="show('dashboard')" id="navDashboard">🏠<br>Dashboard</button>
-  <button onclick="show('progress')" id="navProgress">📊<br>Progress</button>
-  <button onclick="show('profile')" id="navProfile">👤<br>Profile</button>
+
+  <button
+    onclick="show('dashboard')"
+    id="navDashboard"
+  >
+    🏠<br>
+    Dashboard
+  </button>
+
+  <button
+    onclick="show('progress')"
+    id="navProgress"
+  >
+    📊<br>
+    Progress
+  </button>
+
+  <button
+    onclick="show('profile')"
+    id="navProfile"
+  >
+    👤<br>
+    Profile
+  </button>
+
 </nav>
 
+
 <script>
-const defaultGoals=[
- {id:"sleep",name:"Sleep",unit:"hours",target:8,step:.5,xp:25,icon:"🌙"},
- {id:"walking",name:"Walking",unit:"steps",target:10000,step:500,xp:30,icon:"👟"},
- {id:"exercise",name:"Exercise",unit:"minutes",target:30,step:5,xp:40,icon:"🏋️"},
- {id:"water",name:"Water",unit:"litres",target:2,step:.25,xp:10,icon:"💧"},
- {id:"study",name:"Study",unit:"minutes",target:45,step:5,xp:30,icon:"📚"},
- {id:"reading",name:"Reading",unit:"pages",target:10,step:1,xp:25,icon:"📖"}
+
+/* =========================
+   DEFAULT GOALS
+========================= */
+
+const defaultGoals = [
+
+ {
+  id:"sleep",
+  name:"Sleep",
+  unit:"hours",
+  target:8,
+  step:.5,
+  xp:25,
+  icon:"🌙"
+ },
+
+ {
+  id:"walking",
+  name:"Walking",
+  unit:"steps",
+  target:10000,
+  step:500,
+  xp:30,
+  icon:"👟"
+ },
+
+ {
+  id:"exercise",
+  name:"Exercise",
+  unit:"minutes",
+  target:30,
+  step:5,
+  xp:40,
+  icon:"🏋️"
+ },
+
+ {
+  id:"water",
+  name:"Water",
+  unit:"litres",
+  target:2,
+  step:.25,
+  xp:10,
+  icon:"💧"
+ },
+
+ {
+  id:"study",
+  name:"Study",
+  unit:"minutes",
+  target:45,
+  step:5,
+  xp:30,
+  icon:"📚"
+ },
+
+ {
+  id:"reading",
+  name:"Reading",
+  unit:"pages",
+  target:10,
+  step:1,
+  xp:25,
+  icon:"📖"
+ }
+
 ];
 
-let data=JSON.parse(localStorage.getItem("levelupData"))||{
- name:"",
- goals:defaultGoals.map(g=>({...g,enabled:true,progress:0,streak:0,best:0,done:false})),
- xp:0
-};
+
+/* =========================
+   ACCOUNT SYSTEM
+========================= */
+
+let accounts =
+ JSON.parse(localStorage.getItem("levelupAccounts")) || {};
+
+let currentUser =
+ localStorage.getItem("levelupCurrentUser");
+
+
+/* =========================
+   CREATE NEW ACCOUNT
+========================= */
+
+function signup(){
+
+ const username =
+   document.getElementById("signupUsername")
+   .value
+   .trim()
+   .toLowerCase();
+
+ const password =
+   document.getElementById("signupPassword")
+   .value;
+
+ const password2 =
+   document.getElementById("signupPassword2")
+   .value;
+
+ const error =
+   document.getElementById("signupError");
+
+ error.textContent = "";
+
+
+ if(!username || !password){
+
+   error.textContent =
+     "Please enter a username and password.";
+
+   return;
+ }
+
+
+ if(accounts[username]){
+
+   error.textContent =
+     "That username already exists.";
+
+   return;
+ }
+
+
+ if(password !== password2){
+
+   error.textContent =
+     "Passwords do not match.";
+
+   return;
+ }
+
+
+ if(password.length < 4){
+
+   error.textContent =
+     "Password must be at least 4 characters.";
+
+   return;
+ }
+
+
+ accounts[username] = {
+
+   username:username,
+
+   password:password,
+
+   name:"",
+
+   xp:0,
+
+   goals:
+     defaultGoals.map(g => ({
+       ...g,
+       enabled:true,
+       progress:0,
+       streak:0,
+       best:0,
+       done:false
+     }))
+
+ };
+
+
+ localStorage.setItem(
+   "levelupAccounts",
+   JSON.stringify(accounts)
+ );
+
+
+ currentUser = username;
+
+ localStorage.setItem(
+   "levelupCurrentUser",
+   username
+ );
+
+
+ show("name");
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+ const username =
+   document.getElementById("loginUsername")
+   .value
+   .trim()
+   .toLowerCase();
+
+ const password =
+   document.getElementById("loginPassword")
+   .value;
+
+ const error =
+   document.getElementById("loginError");
+
+ error.textContent = "";
+
+
+ if(!accounts[username]){
+
+   error.textContent =
+     "Username not found.";
+
+   return;
+ }
+
+
+ if(accounts[username].password !== password){
+
+   error.textContent =
+     "Incorrect password.";
+
+   return;
+ }
+
+
+ currentUser = username;
+
+ localStorage.setItem(
+   "levelupCurrentUser",
+   username
+ );
+
+
+ if(accounts[username].name){
+
+   show("dashboard");
+   render();
+
+ }else{
+
+   show("name");
+
+ }
+
+}
+
+
+/* =========================
+   CURRENT ACCOUNT
+========================= */
+
+function getData(){
+
+ return accounts[currentUser];
+
+}
+
+
+/* =========================
+   SAVE ACCOUNT
+========================= */
 
 function save(){
- localStorage.setItem("levelupData",JSON.stringify(data));
+
+ accounts[currentUser] =
+   getData();
+
+ localStorage.setItem(
+   "levelupAccounts",
+   JSON.stringify(accounts)
+ );
+
 }
+
+
+/* =========================
+   SAVE NAME
+========================= */
 
 function saveName(){
- const name=document.getElementById("nameInput").value.trim();
- if(!name){alert("Please enter your name.");return}
- data.name=name;
+
+ const name =
+   document.getElementById("nameInput")
+   .value
+   .trim();
+
+
+ if(!name){
+
+   alert("Please enter your name.");
+
+   return;
+
+ }
+
+
+ getData().name = name;
+
  save();
+
  buildGoalSetup();
+
  show("goals");
+
 }
+
+
+/* =========================
+   BUILD GOALS
+========================= */
 
 function buildGoalSetup(){
- document.getElementById("goalSetup").innerHTML=data.goals.map(g=>`
+
+ const data = getData();
+
+ document.getElementById("goalSetup").innerHTML =
+
+ data.goals.map(g => `
+
  <div class="card goal">
-   <div class="icon">${g.icon}</div>
-   <div class="goalmain">
-     <div class="goalname">${g.name}</div>
-     <div class="meta">Daily target</div>
-     <input type="number" id="target-${g.id}" value="${g.target}" step="${g.step}">
+
+   <div class="icon">
+     ${g.icon}
    </div>
-   <input type="checkbox" id="enable-${g.id}" ${g.enabled?"checked":""} style="width:20px">
+
+   <div class="goalmain">
+
+     <div class="goalname">
+       ${g.name}
+     </div>
+
+     <div class="meta">
+       Daily target
+     </div>
+
+     <input
+       type="number"
+       id="target-${g.id}"
+       value="${g.target}"
+       step="${g.step}"
+     >
+
+   </div>
+
+   <input
+     type="checkbox"
+     id="enable-${g.id}"
+     ${g.enabled ? "checked" : ""}
+     style="width:20px"
+   >
+
  </div>
+
  `).join("");
+
 }
+
+
+/* =========================
+   SAVE GOALS
+========================= */
 
 function saveGoals(){
- data.goals.forEach(g=>{
-   g.enabled=document.getElementById("enable-"+g.id).checked;
-   g.target=Number(document.getElementById("target-"+g.id).value)||g.target;
+
+ const data = getData();
+
+
+ data.goals.forEach(g => {
+
+   g.enabled =
+     document
+       .getElementById("enable-"+g.id)
+       .checked;
+
+   g.target =
+     Number(
+       document
+         .getElementById("target-"+g.id)
+         .value
+     ) || g.target;
+
  });
- if(!data.goals.some(g=>g.enabled)){
+
+
+ if(!data.goals.some(g => g.enabled)){
+
    alert("Choose at least one goal.");
+
    return;
+
  }
+
+
  save();
+
  show("dashboard");
+
  render();
+
 }
+
+
+/* =========================
+   NAVIGATION
+========================= */
 
 function show(page){
- document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
- document.getElementById(page+"Screen").classList.add("active");
 
- const nav=document.getElementById("nav");
- if(page==="name"||page==="goals") nav.classList.add("hidden");
- else nav.classList.remove("hidden");
+ document
+   .querySelectorAll(".screen")
+   .forEach(x =>
+     x.classList.remove("active")
+   );
 
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
- const b=document.getElementById("nav"+page.charAt(0).toUpperCase()+page.slice(1));
- if(b)b.classList.add("active");
 
- if(page==="dashboard")render();
- if(page==="progress")renderProgress();
- if(page==="profile")document.getElementById("profileName").value=data.name;
+ document
+   .getElementById(page+"Screen")
+   .classList.add("active");
+
+
+ const nav =
+   document.getElementById("nav");
+
+
+ if(
+   page === "login" ||
+   page === "signup" ||
+   page === "name" ||
+   page === "goals"
+ ){
+
+   nav.classList.add("hidden");
+
+ }else{
+
+   nav.classList.remove("hidden");
+
+ }
+
+
+ document
+   .querySelectorAll(".nav button")
+   .forEach(x =>
+     x.classList.remove("active")
+   );
+
+
+ const button =
+   document.getElementById(
+     "nav"+
+     page.charAt(0).toUpperCase()+
+     page.slice(1)
+   );
+
+
+ if(button)
+   button.classList.add("active");
+
+
+ if(page === "dashboard")
+   render();
+
+ if(page === "progress")
+   renderProgress();
+
+ if(page === "profile"){
+
+   const data = getData();
+
+   document.getElementById(
+     "profileName"
+   ).value = data.name;
+
+   document.getElementById(
+     "profileUsername"
+   ).textContent = data.username;
+
+ }
+
 }
+
+
+/* =========================
+   LOG GOAL
+========================= */
 
 function logGoal(id){
- const g=data.goals.find(x=>x.id===id);
- const amount=prompt(`How much ${g.name} did you complete?`,g.step);
- if(amount===null)return;
 
- const value=Number(amount);
- if(!Number.isFinite(value)||value<=0){
-   alert("Enter a valid amount.");
+ const data = getData();
+
+ const g =
+   data.goals.find(
+     x => x.id === id
+   );
+
+
+ const amount =
+   prompt(
+     `How much ${g.name} did you complete?`,
+     g.step
+   );
+
+
+ if(amount === null)
    return;
+
+
+ const value = Number(amount);
+
+
+ if(
+   !Number.isFinite(value) ||
+   value <= 0
+ ){
+
+   alert("Enter a valid amount.");
+
+   return;
+
  }
 
- g.progress+=value;
 
- if(g.progress>=g.target&&!g.done){
-   g.done=true;
+ g.progress += value;
+
+
+ if(
+   g.progress >= g.target &&
+   !g.done
+ ){
+
+   g.done = true;
+
    g.streak++;
-   g.best=Math.max(g.best,g.streak);
-   data.xp+=g.xp;
-   alert(`Goal complete! +${g.xp} XP 🎉`);
+
+   g.best =
+     Math.max(
+       g.best,
+       g.streak
+     );
+
+   data.xp += g.xp;
+
+
+   alert(
+     `Goal complete! +${g.xp} XP 🎉`
+   );
+
  }
+
 
  save();
+
  render();
+
 }
+
+
+/* =========================
+   DASHBOARD
+========================= */
 
 function render(){
- document.getElementById("greeting").textContent=data.name||"Member";
- document.getElementById("avatar").textContent=(data.name||"L")[0].toUpperCase();
 
- const level=Math.floor(data.xp/250)+1;
- const current=data.xp%250;
+ const data = getData();
 
- document.getElementById("level").textContent="Level "+level;
- document.getElementById("xp").textContent=data.xp+" XP";
- document.getElementById("xpBar").style.width=(current/250*100)+"%";
- document.getElementById("nextXP").textContent=(250-current)+" XP to next level";
+ if(!data)
+   return;
 
- const goals=data.goals.filter(g=>g.enabled);
- const done=goals.filter(g=>g.done).length;
 
- document.getElementById("ring").textContent=done+"/"+goals.length;
- document.getElementById("summary").textContent=
-   done===goals.length ? "All daily goals complete! 🎉" :
-   done+" of "+goals.length+" goals complete";
+ document.getElementById(
+   "greeting"
+ ).textContent =
+   data.name || "Member";
 
- document.getElementById("dashboardGoals").innerHTML=goals.map(g=>{
-   const percent=Math.min(100,g.progress/g.target*100);
+
+ document.getElementById(
+   "avatar"
+ ).textContent =
+   (data.name || "L")[0].toUpperCase();
+
+
+ const level =
+   Math.floor(data.xp / 250) + 1;
+
+
+ const current =
+   data.xp % 250;
+
+
+ document.getElementById(
+   "level"
+ ).textContent =
+   "Level " + level;
+
+
+ document.getElementById(
+   "xp"
+ ).textContent =
+   data.xp + " XP";
+
+
+ document.getElementById(
+   "xpBar"
+ ).style.width =
+   (current / 250 * 100) + "%";
+
+
+ document.getElementById(
+   "nextXP"
+ ).textContent =
+   (250-current) +
+   " XP to next level";
+
+
+ const goals =
+   data.goals.filter(
+     g => g.enabled
+   );
+
+
+ const done =
+   goals.filter(
+     g => g.done
+   ).length;
+
+
+ document.getElementById(
+   "ring"
+ ).textContent =
+   done + "/" + goals.length;
+
+
+ document.getElementById(
+   "summary"
+ ).textContent =
+
+ done === goals.length
+
+ ? "All daily goals complete! 🎉"
+
+ : done +
+   " of " +
+   goals.length +
+   " goals complete";
+
+
+ document.getElementById(
+   "dashboardGoals"
+ ).innerHTML =
+
+ goals.map(g => {
+
+   const percent =
+     Math.min(
+       100,
+       g.progress /
+       g.target *
+       100
+     );
+
+
    return `
+
    <div class="card goal">
-     <div class="icon">${g.icon}</div>
-     <div class="goalmain">
-       <div class="goalname">${g.name}</div>
-       <div class="meta">${g.progress} / ${g.target} ${g.unit}</div>
-       <div class="bar"><i style="width:${percent}%;background:#3978f6"></i></div>
-       <div class="meta">🔥 ${g.streak} day streak · +${g.xp} XP</div>
+
+     <div class="icon">
+       ${g.icon}
      </div>
-     <button class="log" onclick="logGoal('${g.id}')">
-       ${g.done?"Update":"Log"}
+
+     <div class="goalmain">
+
+       <div class="goalname">
+         ${g.name}
+       </div>
+
+       <div class="meta">
+         ${g.progress} /
+         ${g.target}
+         ${g.unit}
+       </div>
+
+       <div class="bar">
+
+         <i
+           style="
+             width:${percent}%;
+             background:#3978f6
+           "
+         ></i>
+
+       </div>
+
+       <div class="meta">
+         🔥 ${g.streak}
+         day streak ·
+         +${g.xp} XP
+       </div>
+
+     </div>
+
+     <button
+       class="log"
+       onclick="logGoal('${g.id}')"
+     >
+       ${g.done ? "Update" : "Log"}
      </button>
-   </div>`;
+
+   </div>
+
+   `;
+
  }).join("");
 
- document.getElementById("streaks").innerHTML=goals.map(g=>`
+
+ document.getElementById(
+   "streaks"
+ ).innerHTML =
+
+ goals.map(g => `
+
    <div class="card row">
-     <b>${g.icon} ${g.name}</b>
-     <span class="xp">${g.streak} days 🔥</span>
+
+     <b>
+       ${g.icon} ${g.name}
+     </b>
+
+     <span class="xp">
+       ${g.streak} days 🔥
+     </span>
+
    </div>
+
  `).join("");
+
 }
+
+
+/* =========================
+   PROGRESS
+========================= */
 
 function renderProgress(){
- document.getElementById("totalXP").textContent=data.xp+" XP";
- document.getElementById("progressLevel").textContent=
-   "Level "+(Math.floor(data.xp/250)+1);
 
- const best=Math.max(0,...data.goals.map(g=>g.best));
- document.getElementById("bestStreak").textContent=best+" days 🔥";
+ const data = getData();
+
+ document.getElementById(
+   "totalXP"
+ ).textContent =
+   data.xp + " XP";
+
+
+ document.getElementById(
+   "progressLevel"
+ ).textContent =
+   "Level " +
+   (Math.floor(data.xp / 250) + 1);
+
+
+ const best =
+   Math.max(
+     0,
+     ...data.goals.map(
+       g => g.best
+     )
+   );
+
+
+ document.getElementById(
+   "bestStreak"
+ ).textContent =
+   best + " days 🔥";
+
 }
+
+
+/* =========================
+   CHANGE NAME
+========================= */
 
 function changeName(){
- const n=document.getElementById("profileName").value.trim();
+
+ const data = getData();
+
+ const n =
+   document
+     .getElementById("profileName")
+     .value
+     .trim();
+
+
  if(n){
-   data.name=n;
+
+   data.name = n;
+
    save();
+
    render();
+
    alert("Name saved!");
+
  }
+
 }
+
+
+/* =========================
+   RESET PROGRESS
+========================= */
 
 function resetProgress(){
- if(!confirm("Reset all XP and progress?"))return;
- data.goals.forEach(g=>{
-   g.progress=0;
-   g.done=false;
-   g.streak=0;
+
+ if(
+   !confirm(
+     "Reset all XP and progress?"
+   )
+ )
+   return;
+
+
+ const data = getData();
+
+
+ data.goals.forEach(g => {
+
+   g.progress = 0;
+   g.done = false;
+   g.streak = 0;
+
  });
- data.xp=0;
+
+
+ data.xp = 0;
+
  save();
+
  render();
+
  alert("Progress reset.");
+
 }
 
-if(data.name){
- buildGoalSetup();
- show("dashboard");
- render();
-}else{
- show("name");
+
+/* =========================
+   LOG OUT
+========================= */
+
+function logout(){
+
+ localStorage.removeItem(
+   "levelupCurrentUser"
+ );
+
+ currentUser = null;
+
+ show("login");
+
 }
+
+
+/* =========================
+   START APP
+========================= */
+
+if(currentUser && accounts[currentUser]){
+
+ if(accounts[currentUser].name){
+
+   show("dashboard");
+
+   render();
+
+ }else{
+
+   show("name");
+
+ }
+
+}else{
+
+ show("login");
+
+}
+
 </script>
+
 </body>
 </html>
